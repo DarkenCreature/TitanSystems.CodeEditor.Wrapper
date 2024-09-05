@@ -1,4 +1,4 @@
-# TitanSystems.CodeEditor.Wrapper
+# TitanSystems Monaco Editor Wrapper
 
 A wrapper for implementing the Microsoft Monaco Editor in your WinForms / WPF application.
 
