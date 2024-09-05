@@ -14,4 +14,6 @@ var ed = new CodeEditorControl(new MonacoEditorConfiguration()
 });
 ```
 
+![image](https://github.com/user-attachments/assets/6d1d10fe-768c-4ea0-bfe7-c108406b9053)
+
 ![image](https://github.com/user-attachments/assets/44c51afd-0440-4ef6-bdcc-610d6987433a)
