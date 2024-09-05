@@ -1,6 +1,6 @@
 # TitanSystems.CodeEditor
 
-``` csharp
+```csharp
 using TitanSystems.CodeEditor.UI.WinForms;
 using TitanSystems.CodeEditor.Data.BasicModels;
 
