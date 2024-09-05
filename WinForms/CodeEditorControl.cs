@@ -54,6 +54,11 @@ namespace TitanSystems.CodeEditor.UI.WinForms
             webView.ExecuteScriptAsync($"loadEditorValue({new JavaScriptSerializer().Serialize(value)})");
         }
 
+        public void Save()
+        {
+            WebMessage_Save([ _config.Value ?? "" ]);
+        }
+
 
 
         private void WebView_NavigationCompleted(object? sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e)

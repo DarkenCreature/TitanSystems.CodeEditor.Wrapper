@@ -14,5 +14,6 @@ namespace TitanSystems.CodeEditor.UI.WinForms
 
         public string? GetValue() => _editor.GetValue();
         public void SetValue(string? value) => _editor.SetValue(value);
+        public void Save() => _editor.Save();
     }
 }
