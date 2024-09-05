@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet"
+          data-name="vs/editor/editor.main"
+          href="./MonacoEditor/min/vs/editor/editor.main.css" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        #container {
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <script src="./MonacoEditor/min/vs/loader.js"></script>
+    <script>
+        require.config({ paths: { 'vs': './MonacoEditor/min/vs' } });
+    </script>
+    <script src="./MonacoEditor/min/vs/editor/editor.main.nls.js"></script>
+    <script src="./MonacoEditor/min/vs/editor/editor.main.js"></script>
+    <script>
+        var editor;
+
+        function initialize(lang, theme) {
+            if (editor) {
+                editor.dispose();
+            }
+
+            editor = monaco.editor.create(document.getElementById('container'), {
+                value: 'function helloWorld() {\n\tvar s: string = "Hello World";\n}',
+                language: lang,
+                theme: mapTheme(theme),
+                automaticLayout: true
+            });
+
+            editor.getModel().onDidChangeContent((event) => {
+                window.chrome.webview.postMessage({
+                    action: 'SyncValue',
+                    args: [
+                        editor.getValue()
+                    ]
+                });
+            });
+        }
+
+        function changEditorLanguage(lang) {
+            monaco.editor.setModelLanguage(editor.getModel(), lang);
+        }
+
+        function saveEditorValue() {
+            window.chrome.webview.postMessage({
+                action: 'Save',
+                args: [
+                    editor.getValue()
+                ]
+            });
+        }
+
+        function mapTheme(theme) {
+            switch (theme) {
+                case 'VSDark':
+                    return 'vs-dark';
+                case 'HighContrastDark':
+                    return 'hc-black';
+                default:
+                    return 'vs';
+            }
+        }
+
+        function loadEditorValue(value) {
+            editor.setValue(value);
+        }
+
+        function Test() {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Do you want to continue',
+                icon: 'error',
+                confirmButtonText: 'Cool'
+            })
+        }
+    </script>
+</body>
+</html>
