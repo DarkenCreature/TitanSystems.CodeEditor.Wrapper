@@ -7,8 +7,8 @@ namespace TestWinForms
             InitializeComponent();
             var ed = new TitanSystems.CodeEditor.UI.WinForms.CodeEditorControl(new TitanSystems.CodeEditor.Data.BasicModels.MonacoEditorConfiguration()
             {
-                Language = TitanSystems.CodeEditor.Data.BasicModels.EditorLanguage.JavaScript,
-                Theme = TitanSystems.CodeEditor.Data.BasicModels.EditorTheme.VSDark,
+                Language = TitanSystems.CodeEditor.Data.BasicModels.EditorLanguage.TypeScript,
+                Theme = TitanSystems.CodeEditor.Data.BasicModels.EditorTheme.VSLight,
                 Value = "function hello() {\n\talert('Hello world!');\n}"
             });
             ed.Dock = DockStyle.Fill;

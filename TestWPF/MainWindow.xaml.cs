@@ -14,7 +14,7 @@ namespace TestWPF
             {
                 Language = TitanSystems.CodeEditor.Data.BasicModels.EditorLanguage.JavaScript,
                 Theme = TitanSystems.CodeEditor.Data.BasicModels.EditorTheme.VSDark,
-                Value = "function hello() {\n\talert('Hello world!');\n}"
+                Value = "function hello() {\n\talert('Hello Test!');\n}"
             });
             mainGrid.Children.Add(ed);
         }
