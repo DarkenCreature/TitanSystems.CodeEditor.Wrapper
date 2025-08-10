@@ -4,8 +4,8 @@
 <br/><br/>
 A wrapper for implementing the Microsoft Monaco Editor in your WinForms / WPF application.<br/>
 The control is avaiable on nuget:<br/>
-[TitanSystems.Monaco.Wrapper.WPF](https://www.nuget.org/packages/TitanSystems.Monaco.Wrapper.WPF)<br/>
-[TitanSystems.Monaco.Wrapper.WinForms](https://www.nuget.org/packages/TitanSystems.Monaco.Wrapper.WinForms)<br/>
+<a href="https://www.nuget.org/packages/TitanSystems.Monaco.Wrapper.WPF">TitanSystems.Monaco.Wrapper.WPF</a><br/>
+<a href="https://www.nuget.org/packages/TitanSystems.Monaco.Wrapper.WinForms">TitanSystems.Monaco.Wrapper.WinForms</a><br/>
 
 
 ```csharp
