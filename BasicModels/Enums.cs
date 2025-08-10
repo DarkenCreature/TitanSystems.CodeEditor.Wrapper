@@ -6,7 +6,9 @@
         JavaScript,
         JSON,
         HTML,
-        CSS
+        CSS,
+        PlainText,
+        SQL
     }
 
     public enum EditorTheme
