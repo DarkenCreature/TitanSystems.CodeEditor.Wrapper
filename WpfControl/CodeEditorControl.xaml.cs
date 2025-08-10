@@ -4,6 +4,7 @@ using Nancy.Json;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows.Controls;
 using TitanSystems.CodeEditor.BusinessLogic;
 using TitanSystems.CodeEditor.Data.BasicModels;
@@ -20,7 +21,8 @@ namespace TitanSystems.CodeEditor.UI.WpfControl
         private Dictionary<string, string> fileExtensionMapping = new()
         {
             { ".js", "javascript" },
-            { ".ts", "typescript" }
+            { ".ts", "typescript" },
+            { ".txt", "plaintext" }
         };
 
         public CodeEditorControl([Optional] MonacoEditorConfiguration config)
@@ -29,24 +31,66 @@ namespace TitanSystems.CodeEditor.UI.WpfControl
             _config = config ?? new MonacoEditorConfiguration();
 
             webView.NavigationCompleted += WebView_NavigationCompleted;
-            webView.Source = new Uri(System.IO.Path.Combine(
-                System.AppDomain.CurrentDomain.BaseDirectory,
-                @"res\index.html"
-            ));
+            _ = InitWebViewAsync();
+        }
+
+        private async Task InitWebViewAsync()
+        {
+            await webView.EnsureCoreWebView2Async();
+            webView.CoreWebView2.Settings.IsStatusBarEnabled = false;
+            webView.CoreWebView2.Settings.AreDevToolsEnabled = false;
+            webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
+
+            webView.CoreWebView2.AddWebResourceRequestedFilter(
+                "https://app/*",
+                CoreWebView2WebResourceContext.All,
+                CoreWebView2WebResourceRequestSourceKinds.All);
+
+            webView.CoreWebView2.WebResourceRequested += CoreWebView2_WebResourceRequested;
+            webView.CoreWebView2.Navigate("https://app/index.html");
+        }
+
+        private void WebView_NavigationCompleted(object? sender, CoreWebView2NavigationCompletedEventArgs e)
+        {
+            if (!initialized)
+            {
+                InitEditorBridge();
+                InitializeEditor();
+                initialized = true;
+            }
+        }
+
+        private void InitEditorBridge()
+        {
+            webView.CoreWebView2.WebMessageReceived += CoreWebView2_WebMessageReceived;
+        }
+
+        private void InitializeEditor()
+        {
+            webView.ExecuteScriptAsync(
+                $"initialize('{_config.Language.ToString().ToLower()}', '{_config.Theme}')");
+
+            if (!string.IsNullOrEmpty(_config.Value))
+            {
+                webView.ExecuteScriptAsync(
+                    $"loadEditorValue({new JavaScriptSerializer().Serialize(_config.Value)})");
+            }
+            else if (!string.IsNullOrEmpty(_config.FilePath))
+            {
+                LoadFile(_config.FilePath);
+            }
         }
 
         public void LoadFile(string filePath)
         {
-            if (File.Exists(filePath))
-            {
-                string content = File.ReadAllText(filePath);
-                string val = new JavaScriptSerializer().Serialize(content);
-                string lang = FileExtensionMapping(System.IO.Path.GetExtension(filePath));
+            if (!File.Exists(filePath)) return;
 
-                webView.ExecuteScriptAsync($"loadEditorValue({val})");
-                webView.ExecuteScriptAsync($"changEditorLanguage('{lang}')");
-            }
+            string content = File.ReadAllText(filePath);
+            webView.ExecuteScriptAsync($"loadEditorValue({new JavaScriptSerializer().Serialize(content)})");
+            webView.ExecuteScriptAsync($"changeEditorLanguage('{FileExtensionMapping(Path.GetExtension(filePath))}')");
         }
+
+
         public string? GetValue()
         {
             return _config.Value;
@@ -66,41 +110,22 @@ namespace TitanSystems.CodeEditor.UI.WpfControl
 
 
 
-        private void WebView_NavigationCompleted(object? sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e)
-        {
-            if (!initialized)
-                InitializeEditor();
-        }
-
-        private void InitializeEditor()
-        {
-            webView.ExecuteScriptAsync($"initialize('{_config.Language.ToString().ToLower()}', '{_config.Theme}');");
-            webView.CoreWebView2.WebMessageReceived += CoreWebView2_WebMessageReceived;
-
-            if (!System.String.IsNullOrEmpty(_config.Value))
-                webView.ExecuteScriptAsync($"loadEditorValue({new Nancy.Json.JavaScriptSerializer().Serialize(_config.Value)})");
-            else if (!System.String.IsNullOrEmpty(_config.FilePath))
-                LoadFile(_config.FilePath);
-
-            initialized = true;
-        }
-
         private void CoreWebView2_WebMessageReceived(object? sender, CoreWebView2WebMessageReceivedEventArgs e)
         {
             var message = e.WebMessageAsJson;
             var incoming = new JavaScriptSerializer().Deserialize<WebMessage>(message);
 
-            var _m = this.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).Where(m =>
-                m.GetCustomAttribute<InvokableAttribute>() != null
-                && m.GetCustomAttribute<InvokableAttribute>()?.Name == incoming.Action
-            );
+            var target = GetType()
+                .GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
+                .FirstOrDefault(m => m.GetCustomAttribute<InvokableAttribute>()?.Name == incoming.Action);
 
             try
             {
-                int i = _m.Count();
-                _m?.FirstOrDefault()?.Invoke(this, new object[] { incoming.Args });
+                target?.Invoke(this, [incoming.Args]);
             }
-            catch { }
+            catch
+            {
+            }
         }
 
         [Invokable("Save")]
@@ -108,14 +133,13 @@ namespace TitanSystems.CodeEditor.UI.WpfControl
         {
             _config.Value = (string)args[0];
 
-            if (System.String.IsNullOrEmpty(_config.FilePath))
+            if (string.IsNullOrEmpty(_config.FilePath))
             {
-                var dialog = new SaveFileDialog();
-                bool res = dialog.ShowDialog() ?? false;
-                if (!res)
-                    return;
-
+                /*
+                using var dialog = new SaveFileDialog();
+                if (dialog.ShowDialog() != DialogResult.OK) return;
                 _config.FilePath = dialog.FileName;
+                */
             }
 
             File.WriteAllText(_config.FilePath, (string)args[0]);
@@ -127,16 +151,67 @@ namespace TitanSystems.CodeEditor.UI.WpfControl
             _config.Value = (string)args[0];
         }
 
-
-
         private string FileExtensionMapping(string extension)
         {
-            if (fileExtensionMapping.ContainsKey(extension))
-                return fileExtensionMapping[extension];
-            else if (extension.StartsWith("."))
-                return extension.Split('.')[1].ToLower();
-            else
-                return extension.ToLower();
+            if (fileExtensionMapping.TryGetValue(extension, out var lang))
+                return lang;
+
+            if (extension.StartsWith("."))
+                return extension[1..].ToLowerInvariant();
+
+            return extension.ToLowerInvariant();
+        }
+
+        private void CoreWebView2_WebResourceRequested(object? sender, CoreWebView2WebResourceRequestedEventArgs e)
+        {
+            var uri = new Uri(e.Request.Uri);
+            var path = uri.AbsolutePath.TrimStart('/');
+
+            const string BaseNs = "TitanSystems.CodeEditor.BusinessLogic.res";
+            var asm = typeof(ICodeEditor).Assembly;
+
+            static string ToResName(string baseNs, string p) => $"{baseNs}.{p.Replace('/', '.')}";
+
+            string name = ToResName(BaseNs, path);
+            Stream? stream = asm.GetManifestResourceStream(name);
+
+            if (stream == null)
+            {
+                // Optionales Debugging: einmalig die verfügbaren Namen inspizieren
+                // File.WriteAllLines(Path.Combine(Application.StartupPath, "embedded_names.txt"), asm.GetManifestResourceNames());
+
+                var notFound = new MemoryStream(Encoding.UTF8.GetBytes("Not found"));
+                e.Response = webView.CoreWebView2.Environment.CreateWebResourceResponse(
+                    notFound, 404, "Not Found", "Content-Type: text/plain");
+                return;
+            }
+
+            string headers = $"Content-Type: {GetContentType(path)}\r\nCache-Control: no-cache";
+            e.Response = webView.CoreWebView2.Environment.CreateWebResourceResponse(stream, 200, "OK", headers);
+        }
+
+        private static string GetContentType(string path)
+        {
+            var ext = Path.GetExtension(path).ToLowerInvariant();
+            return ext switch
+            {
+                ".html" => "text/html; charset=utf-8",
+                ".htm" => "text/html; charset=utf-8",
+                ".js" => "application/javascript; charset=utf-8",
+                ".mjs" => "application/javascript; charset=utf-8",
+                ".css" => "text/css; charset=utf-8",
+                ".json" => "application/json; charset=utf-8",
+                ".map" => "application/json; charset=utf-8",
+                ".svg" => "image/svg+xml",
+                ".png" => "image/png",
+                ".jpg" or ".jpeg" => "image/jpeg",
+                ".webp" => "image/webp",
+                ".woff" => "font/woff",
+                ".woff2" => "font/woff2",
+                ".ttf" => "font/ttf",
+                ".ico" => "image/x-icon",
+                _ => "application/octet-stream"
+            };
         }
     }
 }

@@ -8,8 +8,13 @@
     <RootNamespace>TitanSystems.CodeEditor.UI.WinForms</RootNamespace>
     <AssemblyName>TitanSystems.CodeEditor.UI.WinForms</AssemblyName>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Title>TitanSystems Monaco Editor Wrapper WinForms</Title>
+    <Title>TitanSystems Monaco Wrapper WPF</Title>
     <Company>TitanSystems</Company>
+    <PackageId>TitanSystems.Monaco.Wrapper.WinForms</PackageId>
+    <Authors>Thomas Hisgen;TitanSystems</Authors>
+    <Product>TitanSystems.Monaco.Wrapper.WinForms</Product>
+    <Copyright>TitanSystems</Copyright>
+    <Description>A wrapper ui-control for implementing Monaco Editor in WinForms-applicaions.</Description>
   </PropertyGroup>
 
   <ItemGroup>
