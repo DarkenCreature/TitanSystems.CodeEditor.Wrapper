@@ -8,7 +8,14 @@
         HTML,
         CSS,
         PlainText,
-        SQL
+        SQL,
+        XML,
+        MarkDown,
+        CSharp,
+        ABAP,
+        MySQL,
+        Rust,
+        YAML
     }
 
     public enum EditorTheme
