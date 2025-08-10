@@ -15,6 +15,13 @@
     <Product>TitanSystems.Monaco.Wrapper.WinForms</Product>
     <Copyright>TitanSystems</Copyright>
     <Description>A wrapper ui-control for implementing Monaco Editor in WinForms-applicaions.</Description>
+    <FileVersion>1.0.1.0</FileVersion>
+    <Version>1.0.1</Version>
+    <PackageIcon>ttn_monacoeditor.png</PackageIcon>
+    <RepositoryUrl>https://github.com/DarkenCreature/TitanSystems.CodeEditor.Wrapper</RepositoryUrl>
+    <PackageLicenseFile>license.txt</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,6 +33,21 @@
   <ItemGroup>
     <ProjectReference Include="..\BasicModels\BasicModels.csproj" />
     <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="license.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="readme.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="ttn_monacoeditor.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
