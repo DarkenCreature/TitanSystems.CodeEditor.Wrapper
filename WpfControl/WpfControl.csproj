@@ -1,5 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <PropertyGroup Label="Globals">
+    <WebView2UseWinRT>False</WebView2UseWinRT>
+    <WebView2EnableCsWinRTProjection>False</WebView2EnableCsWinRTProjection>
+    <WebView2LoaderPreference>Static</WebView2LoaderPreference>
+  </PropertyGroup>
+
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
@@ -16,22 +22,444 @@
     <Copyright>TitanSystems</Copyright>
     <Description>A wrapper ui-control for implementing Monaco Editor in WPF-applicaions.</Description>
     <PackageIcon>ttn_monacoeditor.png</PackageIcon>
-    <FileVersion>1.0.1.0</FileVersion>
-    <Version>1.0.1</Version>
+    <FileVersion>1.0.3.0</FileVersion>
+    <Version>1.0.3</Version>
     <RepositoryUrl>https://github.com/DarkenCreature/TitanSystems.CodeEditor.Wrapper</RepositoryUrl>
     <PackageLicenseFile>license.txt</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <PackAsTool>False</PackAsTool>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="res\favicon.ico" />
+    <None Remove="res\index.html" />
+    <None Remove="res\MonacoEditor\min\vs\base\browser\ui\codicons\codicon\codicon.ttf" />
+    <None Remove="res\MonacoEditor\min\vs\base\worker\workerMain.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\abap\abap.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\apex\apex.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\azcli\azcli.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\bat\bat.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\bicep\bicep.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\cameligo\cameligo.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\clojure\clojure.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\coffee\coffee.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\cpp\cpp.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\csharp\csharp.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\csp\csp.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\css\css.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\cypher\cypher.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\dart\dart.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\dockerfile\dockerfile.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\ecl\ecl.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\elixir\elixir.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\flow9\flow9.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\freemarker2\freemarker2.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\fsharp\fsharp.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\go\go.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\graphql\graphql.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\handlebars\handlebars.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\hcl\hcl.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\html\html.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\ini\ini.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\javascript\javascript.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\java\java.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\julia\julia.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\kotlin\kotlin.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\less\less.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\lexon\lexon.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\liquid\liquid.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\lua\lua.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\m3\m3.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\markdown\markdown.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\mdx\mdx.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\mips\mips.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\msdax\msdax.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\mysql\mysql.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\objective-c\objective-c.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\pascaligo\pascaligo.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\pascal\pascal.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\perl\perl.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\pgsql\pgsql.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\php\php.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\pla\pla.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\postiats\postiats.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\powerquery\powerquery.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\powershell\powershell.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\protobuf\protobuf.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\pug\pug.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\python\python.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\qsharp\qsharp.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\razor\razor.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\redis\redis.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\redshift\redshift.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\restructuredtext\restructuredtext.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\ruby\ruby.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\rust\rust.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\r\r.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\sb\sb.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\scala\scala.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\scheme\scheme.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\scss\scss.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\shell\shell.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\solidity\solidity.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\sophia\sophia.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\sparql\sparql.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\sql\sql.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\st\st.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\swift\swift.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\systemverilog\systemverilog.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\tcl\tcl.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\twig\twig.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\typescript\typescript.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\typespec\typespec.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\vb\vb.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\wgsl\wgsl.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\xml\xml.js" />
+    <None Remove="res\MonacoEditor\min\vs\basiclanguages\yaml\yaml.js" />
+    <None Remove="res\MonacoEditor\min\vs\editor\editor.main.css" />
+    <None Remove="res\MonacoEditor\min\vs\editor\editor.main.js" />
+    <None Remove="res\MonacoEditor\min\vs\language\css\cssMode.js" />
+    <None Remove="res\MonacoEditor\min\vs\language\css\cssWorker.js" />
+    <None Remove="res\MonacoEditor\min\vs\language\html\htmlMode.js" />
+    <None Remove="res\MonacoEditor\min\vs\language\html\htmlWorker.js" />
+    <None Remove="res\MonacoEditor\min\vs\language\json\jsonMode.js" />
+    <None Remove="res\MonacoEditor\min\vs\language\json\jsonWorker.js" />
+    <None Remove="res\MonacoEditor\min\vs\language\typescript\tsMode.js" />
+    <None Remove="res\MonacoEditor\min\vs\language\typescript\tsWorker.js" />
+    <None Remove="res\MonacoEditor\min\vs\loader.js" />
+    <None Remove="res\MonacoEditor\min\vs\nls.messages.de.js" />
+    <None Remove="res\MonacoEditor\min\vs\nls.messages.es.js" />
+    <None Remove="res\MonacoEditor\min\vs\nls.messages.fr.js" />
+    <None Remove="res\MonacoEditor\min\vs\nls.messages.it.js" />
+    <None Remove="res\MonacoEditor\min\vs\nls.messages.ja.js" />
+    <None Remove="res\MonacoEditor\min\vs\nls.messages.ko.js" />
+    <None Remove="res\MonacoEditor\min\vs\nls.messages.ru.js" />
+    <None Remove="res\MonacoEditor\min\vs\nls.messages.zh-cn.js" />
+    <None Remove="res\MonacoEditor\min\vs\nls.messages.zh-tw.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="res\favicon.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\index.html">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\base\browser\ui\codicons\codicon\codicon.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\base\worker\workerMain.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\abap\abap.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\apex\apex.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\azcli\azcli.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\bat\bat.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\bicep\bicep.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\cameligo\cameligo.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\clojure\clojure.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\coffee\coffee.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\cpp\cpp.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\csharp\csharp.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\csp\csp.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\css\css.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\cypher\cypher.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\dart\dart.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\dockerfile\dockerfile.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\ecl\ecl.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\elixir\elixir.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\flow9\flow9.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\freemarker2\freemarker2.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\fsharp\fsharp.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\go\go.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\graphql\graphql.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\handlebars\handlebars.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\hcl\hcl.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\html\html.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\ini\ini.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\javascript\javascript.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\java\java.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\julia\julia.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\kotlin\kotlin.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\less\less.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\lexon\lexon.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\liquid\liquid.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\lua\lua.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\m3\m3.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\markdown\markdown.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\mdx\mdx.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\mips\mips.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\msdax\msdax.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\mysql\mysql.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\objective-c\objective-c.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\pascaligo\pascaligo.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\pascal\pascal.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\perl\perl.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\pgsql\pgsql.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\php\php.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\pla\pla.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\postiats\postiats.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\powerquery\powerquery.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\powershell\powershell.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\protobuf\protobuf.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\pug\pug.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\python\python.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\qsharp\qsharp.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\razor\razor.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\redis\redis.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\redshift\redshift.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\restructuredtext\restructuredtext.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\ruby\ruby.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\rust\rust.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\r\r.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\sb\sb.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\scala\scala.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\scheme\scheme.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\scss\scss.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\shell\shell.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\solidity\solidity.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\sophia\sophia.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\sparql\sparql.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\sql\sql.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\st\st.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\swift\swift.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\systemverilog\systemverilog.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\tcl\tcl.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\twig\twig.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\typescript\typescript.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\typespec\typespec.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\vb\vb.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\wgsl\wgsl.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\xml\xml.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\basiclanguages\yaml\yaml.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\editor\editor.main.css">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\editor\editor.main.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\language\css\cssMode.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\language\css\cssWorker.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\language\html\htmlMode.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\language\html\htmlWorker.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\language\json\jsonMode.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\language\json\jsonWorker.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\language\typescript\tsMode.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\language\typescript\tsWorker.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\loader.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\nls.messages.de.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\nls.messages.es.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\nls.messages.fr.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\nls.messages.it.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\nls.messages.ja.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\nls.messages.ko.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\nls.messages.ru.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\nls.messages.zh-cn.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="res\MonacoEditor\min\vs\nls.messages.zh-tw.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2739.15" />
     <PackageReference Include="Nancy" Version="2.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\BasicModels\BasicModels.csproj" />
-    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using TitanSystems.CodeEditor.BusinessLogic;
+using TitanSystems.CodeEditor.UI.WpfControl.Models;
 
 namespace TitanSystems.CodeEditor.UI.WpfControl
 {
@@ -10,10 +10,11 @@ namespace TitanSystems.CodeEditor.UI.WpfControl
     {
         private CodeEditorControl _editor;
 
-        public CodeEditorWindow(Data.BasicModels.MonacoEditorConfiguration config)
+        public CodeEditorWindow(MonacoEditorConfiguration config)
         {
             InitializeComponent();
             _editor = new CodeEditorControl(config);
+            grid.Children.Add(_editor);
         }
 
         public string? GetValue() => _editor.GetValue();
