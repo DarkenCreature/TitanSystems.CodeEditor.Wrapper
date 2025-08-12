@@ -9,8 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BasicModels\BasicModels.csproj" />
-    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj" />
     <ProjectReference Include="..\WinForms\WinForms.csproj" />
   </ItemGroup>
 

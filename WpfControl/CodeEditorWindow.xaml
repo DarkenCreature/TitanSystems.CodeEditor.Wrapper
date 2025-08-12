@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TitanSystems.CodeEditor.UI.WpfControl"
         mc:Ignorable="d"
         Title="CodeEditorWindow" Height="450" Width="800">
-    <Grid>
+    <Grid x:Name="grid">
         
     </Grid>
 </Window>

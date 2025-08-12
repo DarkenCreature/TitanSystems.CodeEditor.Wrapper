@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using TitanSystems.CodeEditor.UI.WpfControl.Models;
 
 namespace TestWPF
 {
@@ -10,13 +11,20 @@ namespace TestWPF
         public MainWindow()
         {
             InitializeComponent();
-            var ed = new TitanSystems.CodeEditor.UI.WpfControl.CodeEditorControl(new TitanSystems.CodeEditor.Data.BasicModels.MonacoEditorConfiguration()
+            var ed = new TitanSystems.CodeEditor.UI.WpfControl.CodeEditorControl(new MonacoEditorConfiguration()
             {
-                Language = TitanSystems.CodeEditor.Data.BasicModels.EditorLanguage.JavaScript,
-                Theme = TitanSystems.CodeEditor.Data.BasicModels.EditorTheme.VSDark,
+                Language = EditorLanguage.JavaScript,
+                Theme = EditorTheme.VSDark,
                 Value = "function hello() {\n\talert('Hello Test!');\n}"
             });
             mainGrid.Children.Add(ed);
+
+            new TitanSystems.CodeEditor.UI.WpfControl.CodeEditorWindow(new MonacoEditorConfiguration()
+            {
+                Language = EditorLanguage.JavaScript,
+                Theme = EditorTheme.VSDark,
+                Value = "function hello() {\n\talert('Hello Test!');\n}"
+            }).Show();
         }
     }
 }

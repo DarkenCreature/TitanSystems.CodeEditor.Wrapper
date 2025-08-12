@@ -6,8 +6,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Controls;
-using TitanSystems.CodeEditor.BusinessLogic;
-using TitanSystems.CodeEditor.Data.BasicModels;
+using TitanSystems.CodeEditor.UI.WpfControl.Models;
 
 namespace TitanSystems.CodeEditor.UI.WpfControl
 {
@@ -135,11 +134,9 @@ namespace TitanSystems.CodeEditor.UI.WpfControl
 
             if (string.IsNullOrEmpty(_config.FilePath))
             {
-                /*
-                using var dialog = new SaveFileDialog();
-                if (dialog.ShowDialog() != DialogResult.OK) return;
+                var dialog = new SaveFileDialog();
+                if (dialog.ShowDialog() == false) return;
                 _config.FilePath = dialog.FileName;
-                */
             }
 
             File.WriteAllText(_config.FilePath, (string)args[0]);
@@ -167,7 +164,7 @@ namespace TitanSystems.CodeEditor.UI.WpfControl
             var uri = new Uri(e.Request.Uri);
             var path = uri.AbsolutePath.TrimStart('/');
 
-            const string BaseNs = "TitanSystems.CodeEditor.BusinessLogic.res";
+            const string BaseNs = "TitanSystems.CodeEditor.UI.WpfControl.res";
             var asm = typeof(ICodeEditor).Assembly;
 
             static string ToResName(string baseNs, string p) => $"{baseNs}.{p.Replace('/', '.')}";
@@ -177,9 +174,6 @@ namespace TitanSystems.CodeEditor.UI.WpfControl
 
             if (stream == null)
             {
-                // Optionales Debugging: einmalig die verfügbaren Namen inspizieren
-                // File.WriteAllLines(Path.Combine(Application.StartupPath, "embedded_names.txt"), asm.GetManifestResourceNames());
-
                 var notFound = new MemoryStream(Encoding.UTF8.GetBytes("Not found"));
                 e.Response = webView.CoreWebView2.Environment.CreateWebResourceResponse(
                     notFound, 404, "Not Found", "Content-Type: text/plain");

@@ -4,8 +4,7 @@ using Nancy.Json;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
-using TitanSystems.CodeEditor.BusinessLogic;
-using TitanSystems.CodeEditor.Data.BasicModels;
+using TitanSystems.CodeEditor.UI.WinForms.Models;
 
 namespace TitanSystems.CodeEditor.UI.WinForms
 {
@@ -156,7 +155,7 @@ namespace TitanSystems.CodeEditor.UI.WinForms
             var uri = new Uri(e.Request.Uri);
             var path = uri.AbsolutePath.TrimStart('/');
 
-            const string BaseNs = "TitanSystems.CodeEditor.BusinessLogic.res";
+            const string BaseNs = "TitanSystems.CodeEditor.UI.WinForms.res";
             var asm = typeof(ICodeEditor).Assembly;
 
             static string ToResName(string baseNs, string p) => $"{baseNs}.{p.Replace('/', '.')}";
@@ -166,9 +165,6 @@ namespace TitanSystems.CodeEditor.UI.WinForms
 
             if (stream == null)
             {
-                // Optionales Debugging: einmalig die verfügbaren Namen inspizieren
-                // File.WriteAllLines(Path.Combine(Application.StartupPath, "embedded_names.txt"), asm.GetManifestResourceNames());
-
                 var notFound = new MemoryStream(Encoding.UTF8.GetBytes("Not found"));
                 e.Response = webView.CoreWebView2.Environment.CreateWebResourceResponse(
                     notFound, 404, "Not Found", "Content-Type: text/plain");
